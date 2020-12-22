@@ -1,7 +1,3 @@
-/******
-** @创建时间 : 2020/12/22 16:18
-** @作者 : SongZhiBin
-******/
 package biz
 
 type Message struct {

@@ -1,7 +1,3 @@
-/******
-** @创建时间 : 2020/12/22 17:06
-** @作者 : SongZhiBin
-******/
 package data
 
 import (
