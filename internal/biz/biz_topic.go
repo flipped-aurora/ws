@@ -13,6 +13,6 @@ type ITopic interface {
 	// UnSubscribe 退订
 	UnSubscribe(topic, key string) bool
 
-	// Publish 发布
-	Publish(topic string, msg IMessage)
+	// GetTopicList 获取订阅topic的用户
+	GetTopicList(topic string) []string
 }

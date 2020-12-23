@@ -10,7 +10,7 @@ type Handle struct {
 	// lock: 读写锁 避免并发
 	sync.Mutex
 
-	// registry: 注册表
+	// f: 事件表
 	// map[int32]biz.TypeHandlerFunc
 	// map[type]biz.TypeHandlerFunc
 	f atomic.Value

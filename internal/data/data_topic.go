@@ -1,7 +1,6 @@
 package data
 
 import (
-	"Songzhibin/ws/internal/biz"
 	"sync"
 	"sync/atomic"
 )
@@ -10,12 +9,13 @@ type Topic struct {
 	// lock: 读写锁 避免并发
 	sync.Mutex
 
-	// registry: 注册表
+	// t: 订阅表
 	// map[string]map[string]struct{}
 	// map[topic]map[key]struct{}
 	t atomic.Value
 }
 
+// CreateTopic 创建topic
 func (t *Topic) CreateTopic(topic string) {
 	t.Lock()
 	defer t.Unlock()
@@ -32,6 +32,7 @@ func (t *Topic) CreateTopic(topic string) {
 	t.t.Store(nTopic)
 }
 
+// DeleteTopic 删除topic
 func (t *Topic) DeleteTopic(topic string) {
 	t.Lock()
 	defer t.Unlock()
@@ -50,6 +51,7 @@ func (t *Topic) DeleteTopic(topic string) {
 	t.t.Store(nTopic)
 }
 
+// Subscribe 订阅
 func (t *Topic) Subscribe(topic, key string) bool {
 	t.Lock()
 	defer t.Unlock()
@@ -65,6 +67,7 @@ func (t *Topic) Subscribe(topic, key string) bool {
 	return true
 }
 
+// UnSubscribe 退订
 func (t *Topic) UnSubscribe(topic, key string) bool {
 	t.Lock()
 	defer t.Unlock()
@@ -80,17 +83,16 @@ func (t *Topic) UnSubscribe(topic, key string) bool {
 	return true
 }
 
-func (t *Topic) Publish(topic string, msg biz.IMessage) {
+// GetTopicList 获取订阅topic的用户
+func (t *Topic) GetTopicList(topic string) []string {
 	oldTopic := t.t.Load().(map[string]map[string]struct{})
 	if _, ok := oldTopic[topic]; !ok {
-		return
+		// 表示没有此topic
+		return nil
 	}
-	// todo 未做嵌入manage
-	//for key, _ := range oldTopic[topic] {
-	//	client, ok := t.FindClient(key)
-	//	if !ok {
-	//		continue
-	//	}
-	//	client.SendMes(msg)
-	//}
+	res := make([]string, 0)
+	for key, _ := range oldTopic[topic] {
+		res = append(res, key)
+	}
+	return res
 }
