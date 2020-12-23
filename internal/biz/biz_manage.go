@@ -13,4 +13,7 @@ type IManage interface {
 
 	// FindClients: 批量查找在线客户端
 	FindClients(key ...string) []IClient
+
+	// GetAll: 查找所有客户端
+	GetAll() []IClient
 }

@@ -91,3 +91,13 @@ func NewManage(buf int64) *Manage {
 	m.registry.Store(make(map[string]biz.IClient))
 	return m
 }
+
+// GetAll: 查找所有客户端
+func (m *Manage) GetAll() []biz.IClient {
+	vMap := m.registry.Load().(map[string]biz.IClient)
+	res := make([]biz.IClient, 0, len(vMap))
+	for _, client := range vMap {
+		res = append(res, client)
+	}
+	return res
+}
