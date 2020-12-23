@@ -41,6 +41,11 @@ func (c *Client) GetCtx() context.Context {
 	return c.ctx
 }
 
+// SetCtx: 设置ctx
+func (c *Client) SetCtx(ctx context.Context) {
+	c.ctx = ctx
+}
+
 // Shutdown: 关闭
 func (c *Client) Shutdown() {
 	if atomic.SwapInt32(&c.isClose, closeFlag) != 0 {

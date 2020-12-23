@@ -3,12 +3,13 @@ package data
 import (
 	"Songzhibin/ws/internal/biz"
 	"context"
+	"fmt"
 	"sync"
 	"sync/atomic"
 )
 
-// manage 管理所有客户端
-type manage struct {
+// Manage 管理所有客户端
+type Manage struct {
 	// ctx: 上下文信息
 	ctx context.Context
 	// lock: 读写锁 避免并发
@@ -23,7 +24,7 @@ type manage struct {
 }
 
 // Register: 注册
-func (m *manage) Register(key string) biz.IClient {
+func (m *Manage) Register(key string) biz.IClient {
 	client := NewClient(m.ctx, m.buf)
 	if v, ok := m.FindClient(key); ok {
 		v.Shutdown()
@@ -37,11 +38,12 @@ func (m *manage) Register(key string) biz.IClient {
 	}
 	nMap[key] = client
 	m.registry.Store(nMap)
+	fmt.Println("注册:", key)
 	return client
 }
 
 // UnRegister: 注销
-func (m *manage) UnRegister(key string) {
+func (m *Manage) UnRegister(key string) {
 	if _, ok := m.FindClient(key); !ok {
 		return
 	}
@@ -60,18 +62,18 @@ func (m *manage) UnRegister(key string) {
 	if i != nil && i != (biz.IClient)(nil) {
 		i.Shutdown()
 	}
-
+	fmt.Println("注销:", key)
 }
 
 // FindClient: 查找客户端
-func (m *manage) FindClient(key string) (biz.IClient, bool) {
+func (m *Manage) FindClient(key string) (biz.IClient, bool) {
 	vMap := m.registry.Load().(map[string]biz.IClient)
 	v, ok := vMap[key]
 	return v, ok
 }
 
 // FindClients: 批量查找客户端用户
-func (m *manage) FindClients(key ...string) []biz.IClient {
+func (m *Manage) FindClients(key ...string) []biz.IClient {
 	res := make([]biz.IClient, 0)
 	for _, s := range key {
 		if v, ok := m.FindClient(s); ok {
@@ -81,9 +83,10 @@ func (m *manage) FindClients(key ...string) []biz.IClient {
 	return res
 }
 
-func NewManage(buf int64) *manage {
-	m := &manage{
+func NewManage(buf int64) *Manage {
+	m := &Manage{
 		buf: buf,
+		ctx: context.Background(),
 	}
 	m.registry.Store(make(map[string]biz.IClient))
 	return m

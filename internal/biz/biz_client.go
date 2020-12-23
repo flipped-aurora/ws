@@ -15,6 +15,8 @@ type IClient interface {
 	// GetCtx: 返回context.Context
 	GetCtx() context.Context
 
+	// SetCtx: 设置context
+	SetCtx(context.Context)
 	// Shutdown 回收资源
 	// 多次调用无副作用!
 	Shutdown()

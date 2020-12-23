@@ -15,6 +15,12 @@ type Topic struct {
 	t atomic.Value
 }
 
+func NewTopic() *Topic {
+	t := &Topic{}
+	t.t.Store(make(map[string]map[string]struct{}))
+	return t
+}
+
 // CreateTopic 创建topic
 func (t *Topic) CreateTopic(topic string) {
 	t.Lock()
