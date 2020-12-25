@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="981de256-ca83-4508-a7e7-21007e276c10" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/biz/biz_manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/biz/biz_manage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/data/data_manage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/data/data_manage.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,21 +97,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/data/data_admin.go</url>
-          <line>65</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/data/data_admin.go</url>
-          <line>78</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/data/data_admin.go</url>
-          <line>80</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/data/data_admin.go</url>
           <line>100</line>
