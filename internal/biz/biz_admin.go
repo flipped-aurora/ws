@@ -39,6 +39,7 @@ func NewAdmin(admin IAdmin) *AdminCase {
 	}
 }
 
+// RandStringBytesMaskImperSrc: 生成随机字符串
 func RandStringBytesMaskImperSrc(n int) string {
 	b := make([]byte, n)
 	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
