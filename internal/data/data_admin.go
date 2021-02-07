@@ -66,6 +66,7 @@ func (a *Admin) HandlerWS(funcName string, options *websocket.AcceptOptions) fun
 		conn, err := websocket.Accept(c.Writer, c.Request, options)
 		if err != nil {
 			a.Logger.Info("ws升级失败:", zap.Any("err", err))
+			c.Status(101)
 			return
 		}
 		// 校验
@@ -73,6 +74,7 @@ func (a *Admin) HandlerWS(funcName string, options *websocket.AcceptOptions) fun
 		if !ok {
 			a.Logger.Info("身份校验失败:")
 			_ = conn.Close(websocket.StatusInvalidFramePayloadData, "身份校验失败")
+			c.Status(401)
 			return
 		}
 		defer conn.Close(websocket.StatusNormalClosure, "")
@@ -82,6 +84,7 @@ func (a *Admin) HandlerWS(funcName string, options *websocket.AcceptOptions) fun
 		for {
 			select {
 			case <-client.GetCtx().Done():
+				c.Status(499)
 				return
 			case msg := <-client.MsgChan():
 				data, err := msg.Marshal()
