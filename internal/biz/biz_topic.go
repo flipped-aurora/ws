@@ -1,6 +1,6 @@
 package biz
 
-// ITopic: 订阅表
+// ITopic 订阅表
 type ITopic interface {
 	// CreateTopic 创建topic
 	CreateTopic(string)

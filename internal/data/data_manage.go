@@ -1,10 +1,10 @@
 package data
 
 import (
-	"Songzhibin/ws/internal/biz"
-	"Songzhibin/ws/internal/utils"
 	"context"
 	"fmt"
+	"songzhibin/ws/internal/biz"
+	"songzhibin/ws/internal/utils"
 	"sync"
 	"sync/atomic"
 )
@@ -32,7 +32,7 @@ type slot struct {
 	block map[string]biz.IClient
 }
 
-// Register: 注册
+// Register 注册
 func (m *Manage) Register(key string) biz.IClient {
 	client := NewClient(m.ctx, m.buf)
 	if v, ok := m.FindClient(key); ok {
@@ -51,7 +51,7 @@ func (m *Manage) Register(key string) biz.IClient {
 	return client
 }
 
-// UnRegister: 注销
+// UnRegister 注销
 func (m *Manage) UnRegister(key string) {
 	if _, ok := m.FindClient(key); !ok {
 		return
@@ -70,7 +70,7 @@ func (m *Manage) UnRegister(key string) {
 	fmt.Println("注销:", key)
 }
 
-// FindClient: 查找客户端
+// FindClient 查找客户端
 func (m *Manage) FindClient(key string) (biz.IClient, bool) {
 	shardingKey := utils.HashUint16(key)
 	m.registry[shardingKey].Lock()
@@ -79,7 +79,7 @@ func (m *Manage) FindClient(key string) (biz.IClient, bool) {
 	return v, ok
 }
 
-// FindClients: 批量查找客户端用户
+// FindClients 批量查找客户端用户
 func (m *Manage) FindClients(key ...string) []biz.IClient {
 	res := make([]biz.IClient, 0)
 	for _, s := range key {
@@ -90,6 +90,7 @@ func (m *Manage) FindClients(key ...string) []biz.IClient {
 	return res
 }
 
+// NewManage 新建 Manage对象
 func NewManage(buf int64) *Manage {
 	m := &Manage{
 		buf: buf,
@@ -98,7 +99,7 @@ func NewManage(buf int64) *Manage {
 	return m
 }
 
-// GetAll: 查找所有客户端
+// GetAll 查找所有客户端
 func (m *Manage) GetAll() []biz.IClient {
 	ret := make([]biz.IClient, 0, m.count)
 	for index, _ := range m.registry {

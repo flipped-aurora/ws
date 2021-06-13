@@ -1,4 +1,4 @@
-module Songzhibin/ws
+module songzhibin/ws
 
 go 1.16
 

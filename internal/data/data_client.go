@@ -1,7 +1,7 @@
 package data
 
 import (
-	"Songzhibin/ws/internal/biz"
+	"songzhibin/ws/internal/biz"
 	"sync/atomic"
 
 	"context"
@@ -18,7 +18,7 @@ type Client struct {
 	isClose int32
 }
 
-// SendMes: 发送消息(非阻塞,如果已经满了则快速失败)
+// SendMes 发送消息(非阻塞,如果已经满了则快速失败)
 func (c *Client) SendMes(msg biz.IMessage) bool {
 	if atomic.LoadInt32(&c.isClose) != 0 {
 		return false
@@ -31,22 +31,22 @@ func (c *Client) SendMes(msg biz.IMessage) bool {
 	}
 }
 
-// MsgChan: 返回channel
+// MsgChan 返回channel
 func (c *Client) MsgChan() <-chan biz.IMessage {
 	return c.msg
 }
 
-// GetCtx: 获取ctx
+// GetCtx 获取ctx
 func (c *Client) GetCtx() context.Context {
 	return c.ctx
 }
 
-// SetCtx: 设置ctx
+// SetCtx 设置ctx
 func (c *Client) SetCtx(ctx context.Context) {
 	c.ctx = ctx
 }
 
-// Shutdown: 关闭
+// Shutdown 关闭
 func (c *Client) Shutdown() {
 	if atomic.SwapInt32(&c.isClose, closeFlag) != 0 {
 		return
@@ -56,7 +56,7 @@ func (c *Client) Shutdown() {
 	c.cancel()
 }
 
-// NewClient: 返回实例化
+// NewClient 返回实例化
 func NewClient(ctx context.Context, buf int64) *Client {
 	client := &Client{msg: make(chan biz.IMessage, buf)}
 	client.ctx, client.cancel = context.WithCancel(ctx)

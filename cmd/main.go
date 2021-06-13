@@ -1,10 +1,10 @@
 package main
 
 import (
-	"Songzhibin/ws/internal/biz"
-	"Songzhibin/ws/internal/data"
 	"fmt"
 	"os"
+	"songzhibin/ws/internal/biz"
+	"songzhibin/ws/internal/data"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -12,7 +12,7 @@ import (
 	"nhooyr.io/websocket"
 )
 
-// Init:logger初始化
+// Init logger初始化
 func Init() error {
 
 	// 创建自定义logger

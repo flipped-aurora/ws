@@ -26,20 +26,20 @@ type AdminCase struct {
 	IAdmin
 }
 
-// IAdmin: 接口
+// IAdmin 接口
 type IAdmin interface {
 	SendMsg(funcName string) func(c *gin.Context)
 	HandlerWS(string, *websocket.AcceptOptions) func(c *gin.Context)
 }
 
-// NewAdmin: 实例化对象
+// NewAdmin 实例化对象
 func NewAdmin(admin IAdmin) *AdminCase {
 	return &AdminCase{
 		IAdmin: admin,
 	}
 }
 
-// RandStringBytesMaskImperSrc: 生成随机字符串
+// RandStringBytesMaskImperSrc 生成随机字符串
 func RandStringBytesMaskImperSrc(n int) string {
 	b := make([]byte, n)
 	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!

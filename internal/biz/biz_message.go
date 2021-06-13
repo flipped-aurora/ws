@@ -1,6 +1,6 @@
 package biz
 
-// IMessage: 定义消息接口
+// IMessage 定义消息接口
 type IMessage interface {
 	Marshal() ([]byte, error)
 	Unmarshal(data []byte) error

@@ -1,8 +1,8 @@
 package data
 
 import (
-	"Songzhibin/ws/internal/biz"
 	"net/http"
+	"songzhibin/ws/internal/biz"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -10,7 +10,7 @@ import (
 	"nhooyr.io/websocket"
 )
 
-// Admin: 最终用户拿到的实体对象
+// Admin 最终用户拿到的实体对象
 type Admin struct {
 	biz.IManage
 	biz.ITopic
@@ -31,7 +31,7 @@ func NewAdmin(m biz.IManage, t biz.ITopic, h biz.IHandle, z *zap.Logger) *Admin 
 	}
 }
 
-// SendMsg
+// SendMsg 发送消息
 func (a *Admin) SendMsg(funcName string) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		// 校验
@@ -59,7 +59,7 @@ func (a *Admin) SendMsg(funcName string) func(c *gin.Context) {
 	}
 }
 
-// HandlerWS
+// HandlerWS 注册web路由
 func (a *Admin) HandlerWS(funcName string, options *websocket.AcceptOptions) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		// 升级连接
@@ -100,17 +100,17 @@ func (a *Admin) HandlerWS(funcName string, options *websocket.AcceptOptions) fun
 
 // ====================== 添加一些贫血方法 ========================
 
-// Register: 注册
+// Register 注册
 func (a *Admin) Register(key string) biz.IClient {
 	return a.IManage.Register(key)
 }
 
-// UnRegister: 注销
+// UnRegister 注销
 func (a *Admin) UnRegister(key string) {
 	a.IManage.UnRegister(key)
 }
 
-// AddCheckFunc: 添加校验方法
+// AddCheckFunc 添加校验方法
 func (a *Admin) AddCheckFunc(funcName string, f func(interface{}) (string, bool)) {
 	if _, ok := a.checkMap[funcName]; ok {
 		panic("重复添加function")
@@ -118,7 +118,7 @@ func (a *Admin) AddCheckFunc(funcName string, f func(interface{}) (string, bool)
 	a.checkMap[funcName] = f
 }
 
-// CheckWs: ws校验
+// CheckWs ws校验
 func (a *Admin) CheckWs(funcName string, option interface{}) (string, bool) {
 	// 如果和预留定义的不校验一致 直接返回true
 	if funcName == biz.CheckNull {
@@ -132,13 +132,12 @@ func (a *Admin) CheckWs(funcName string, option interface{}) (string, bool) {
 	return f(option)
 }
 
-// RegisteredMsgHandler: 注册处理消息
+// RegisteredMsgHandler 注册处理消息
 func (a *Admin) RegisteredMsgHandler(t int32, handlerFunc biz.TypeHandlerFunc) bool {
-
 	return a.IHandle.Register(t, handlerFunc)
 }
 
-// HandlerMes: 处理message 分发客户端流程
+// HandlerMes 处理message 分发客户端流程
 func (a *Admin) HandlerMes(msg biz.IMessage) bool {
 	f, ok := a.IHandle.GetHandler(msg.GetType())
 	if !ok {
