@@ -1,7 +1,7 @@
 package data
 
 import (
-	"Songzhibin/ws/internal/biz"
+	"songzhibin/ws/internal/biz"
 	"sync"
 	"sync/atomic"
 )
@@ -33,7 +33,7 @@ func (h *Handle) Register(i int32, handlerFunc biz.TypeHandlerFunc) bool {
 	return true
 }
 
-// GetHandler: 获取注册函数
+// GetHandler 获取注册函数
 func (h *Handle) GetHandler(i int32) (biz.TypeHandlerFunc, bool) {
 	oMap := h.f.Load().(map[int32]biz.TypeHandlerFunc)
 	f, ok := oMap[i]
