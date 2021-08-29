@@ -6,8 +6,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/flipped-aurora/ws/internal/biz"
-	"github.com/flipped-aurora/ws/internal/utils"
+	"github.com/flipped-aurora/ws/core/biz"
+	"github.com/flipped-aurora/ws/core/utils"
 )
 
 // Manage 管理所有客户端
