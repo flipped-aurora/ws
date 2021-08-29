@@ -1,4 +1,4 @@
-module songzhibin/ws
+module github.com/flipped-aurora/ws
 
 go 1.16
 

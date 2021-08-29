@@ -2,8 +2,9 @@ package data
 
 import (
 	"net/http"
-	"songzhibin/ws/internal/biz"
 	"time"
+
+	"github.com/flipped-aurora/ws/internal/biz"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

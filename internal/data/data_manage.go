@@ -3,10 +3,11 @@ package data
 import (
 	"context"
 	"fmt"
-	"songzhibin/ws/internal/biz"
-	"songzhibin/ws/internal/utils"
 	"sync"
 	"sync/atomic"
+
+	"github.com/flipped-aurora/ws/internal/biz"
+	"github.com/flipped-aurora/ws/internal/utils"
 )
 
 // Manage 管理所有客户端

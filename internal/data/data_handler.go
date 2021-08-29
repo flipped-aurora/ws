@@ -1,9 +1,10 @@
 package data
 
 import (
-	"songzhibin/ws/internal/biz"
 	"sync"
 	"sync/atomic"
+
+	"github.com/flipped-aurora/ws/internal/biz"
 )
 
 type Handle struct {
