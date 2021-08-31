@@ -52,9 +52,9 @@ func (c *Client) Shutdown() {
 	if atomic.SwapInt32(&c.isClose, closeFlag) != 0 {
 		return
 	}
+	c.cancel()
 	close(c.msg)
 	c.msg = nil
-	c.cancel()
 }
 
 // NewClient 返回实例化

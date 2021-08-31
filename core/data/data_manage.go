@@ -2,7 +2,7 @@ package data
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"sync"
 	"sync/atomic"
 
@@ -39,6 +39,7 @@ func (m *Manage) Register(key string) biz.IClient {
 	if v, ok := m.FindClient(key); ok {
 		atomic.AddInt64(&m.count, -1)
 		v.Shutdown()
+		log.Println("用户重复登录注销旧连接::", key)
 	}
 	shardingKey := utils.HashUint16(key)
 	m.registry[shardingKey].Lock()
@@ -48,7 +49,7 @@ func (m *Manage) Register(key string) biz.IClient {
 	}
 	m.registry[shardingKey].block[key] = client
 	atomic.AddInt64(&m.count, 1)
-	fmt.Println("注册:", key)
+	log.Println("注册:", key)
 	return client
 }
 
@@ -68,7 +69,7 @@ func (m *Manage) UnRegister(key string) {
 			v.Shutdown()
 		}
 	}
-	fmt.Println("注销:", key)
+	log.Println("注销:", key)
 }
 
 // FindClient 查找客户端
