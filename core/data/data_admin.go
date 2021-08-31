@@ -87,7 +87,10 @@ func (a *Admin) HandlerWS(funcName string, options *websocket.AcceptOptions) fun
 			case <-client.GetCtx().Done():
 				c.Status(499)
 				return
-			case msg := <-client.MsgChan():
+			case msg, ok := <-client.MsgChan():
+				if !ok {
+					return
+				}
 				data, err := msg.Marshal()
 				if err != nil {
 					a.Logger.Error("Marshal error", zap.Any("err", err))
